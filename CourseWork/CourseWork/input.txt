@@ -1,0 +1,9 @@
+number: 123
+name: artem
+address: hostel number five
+accouting date: 12.05.2005
+
+number: 134312412
+name: darina
+address: hostel number four
+accouting date: 34.52.99134
