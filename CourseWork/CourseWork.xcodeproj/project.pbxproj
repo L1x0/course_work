@@ -37,7 +37,6 @@
 		E28F97A12BC4835C00D473CC /* CourseWork */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CourseWork; sourceTree = BUILT_PRODUCTS_DIR; };
 		E28F97A42BC4835C00D473CC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E28F97B22BC4955800D473CC /* input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
-		E28F97BA2BC4A24100D473CC /* output */ = {isa = PBXFileReference; lastKnownFileType = text; path = output; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				E28F97A42BC4835C00D473CC /* main.cpp */,
-				E28F97BA2BC4A24100D473CC /* output */,
 				E28F97B22BC4955800D473CC /* input.txt */,
 			);
 			path = CourseWork;
