@@ -1,19 +1,24 @@
 number: 123
-name: artem
+name: Артём Астахов
 address: hostel number five
 accouting date: 12.05.2005
 
 number: 134312412
-name: darina
+name: Дрина Астахова
 address: hostel number four
 accouting date: 34.52.99134
 
 number: 1
-name: 1
+name: Сергей Астахов
 address: 1
 accouting date: 09.01.2005
 
 number: 2
-name: 2
+name: Ирина Астахова
 address: 2
 accouting date: 06.01.2005
+
+number: 3
+name: Ирина Сергеева
+address: 3
+accouting date: 10.01.2005

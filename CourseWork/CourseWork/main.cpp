@@ -125,11 +125,61 @@ vector<Buyer> bubbleSort_Date(vector<Buyer> buyers) {
     return buyers;
 }
 
-int main(int argc, const char * argv[]) {
-    vector<Buyer> buyers;
-    buyers = getData(buyers);
-    buyers = bubbleSort_Date(buyers);
-    putData(buyers);
+
+vector<Buyer> quickSort_Name(vector<Buyer> buyers) {
     
-    return 0;
+    vector<Buyer> left;
+    vector<Buyer> right;
+    
+    for (int i = 1; i < buyers.size(); i++) {
+        string bearingElementName, secondName;
+        bearingElementName = buyers[0].name.substr(0, buyers[0].name.size() - buyers[0].name.find(" ") - 1);
+        
+        secondName = buyers[i].name.substr(0, buyers[i].name.size() - buyers[i].name.find(" ") - 1);
+        
+        if (bearingElementName < secondName) {
+            right.push_back(buyers[i]);
+            
+        } else if (bearingElementName > secondName) {
+            left.push_back(buyers[i]);
+            
+        } else {
+            bearingElementName = buyers[0].name.substr(buyers[0].name.find(" "), buyers[0].name.size() - buyers[0].name.find(" ") - 1);
+            
+            secondName = buyers[i].name.substr(buyers[i].name.find(" "), buyers[i].name.size() - buyers[i].name.find(" ") - 1);
+            
+            
+            if (bearingElementName <= secondName) {
+                right.push_back(buyers[i]);
+                
+            } else if (bearingElementName < secondName) {
+                left.push_back(buyers[i]);
+            }
+        }
+
+    }
+    
+    if ( left.size() > 1)
+        left = quickSort_Name(left);
+    if (right.size() > 1)
+        right = quickSort_Name(right);
+    left.push_back(buyers[0]);
+    
+    for (int i = 0; i < right.size(); i++) {
+        left.push_back(right[i]);
+    }
+        return left;
+    
+}
+
+
+int main(int argc, const char * argv[]) {
+        vector<Buyer> buyers;
+        buyers = getData(buyers);
+        buyers = bubbleSort_Date(buyers);
+        putData(buyers);
+        buyers = quickSort_Name(buyers);
+    
+        
+        return 0;
 }
