@@ -62,12 +62,10 @@ void putData(vector<Buyer> buyers) {
     
     if (file.is_open()) {
         for (int i = 0; i < buyers.size(); i++) {
-            Buyer buyer = buyers.at(i);
-            
-            file << "number: " << buyer.number << endl;
-            file << "name: " << buyer.name << endl;
-            file << "address: " << buyer.address << endl;
-            file << "accounting date: " << buyer.accountingDate << endl;
+            file << "number: " << buyers[i].number << endl;
+            file << "name: " << buyers[i].name << endl;
+            file << "address: " << buyers[i].address << endl;
+            file << "accounting date: " << buyers[i].accountingDate << endl;
             file << "\n";
         }
     } else {
@@ -197,7 +195,7 @@ vector<Buyer> heapify(vector<Buyer> buyers, int n, int i) {
 }
  
 
-vector<Buyer> heapSort(vector<Buyer> buyers, int n) {
+vector<Buyer> heapSort_Number(vector<Buyer> buyers, int n) {
 
     for (int i = n / 2 - 1; i >= 0; i--)
      heapify(buyers, n, i);
@@ -252,15 +250,84 @@ vector<Buyer> deleteDuplicate(vector<Buyer> buyers) {
     return buyers;
 }
 
+void binarySearch(vector<Buyer> buyers, int low, int high, int number) { 
+
+    if (high >= low) { 
+ 
+        int mid = low + (high - low) / 2; 
+  
+        if (buyers[mid].number == number) {
+            cout << "number: " << buyers[mid].number << endl;
+            cout << "name: " << buyers[mid].name << endl;
+            cout << "address: " << buyers[mid].address << endl;
+            cout << "accounting date: " << buyers[mid].accountingDate << endl;
+        }
+
+        if (buyers[mid].number > number) 
+            binarySearch(buyers, low, mid - 1, number); 
+  
+        binarySearch(buyers, mid + 1, high, number); 
+    }  
+
+    cout << "Запись не найдена" << endl;
+} 
+
 
 int main(int argc, const char * argv[]) {
+
+        setlocale(LC_ALL, "RUS");
         vector<Buyer> buyers;
         buyers = getData(buyers);
-        buyers = bubbleSort_Date(buyers);
-        buyers = quickSort_Name(buyers);
-        buyers = heapSort(buyers, buyers.size());
-
         buyers = deleteDuplicate(buyers);
-        putData(buyers);
+        int choise;
+
+        while (true) {
+
+        cout << "Доступные операции:" << endl;
+        cout << "1 - Сортировка по номеру заказа" << endl;
+        cout << "2 - Сортировка по дате заказа" << endl;
+        cout << "3 - Сортировка по имени заказчика" << endl;
+        cout << "4 - поиск заказа по номеру" << endl;
+        cout << "5 - вывести с учётом сортировки" << endl;
+        cout << "6 - выход" << endl;
+        cout << "Введите номер заказа:";
+        cin >> choise;
+        cout <<"\n";
+
+            switch(choise) {
+                case 1:
+                    buyers = heapSort_Number(buyers, buyers.size());
+                    break;
+                case 2:
+                    buyers = bubbleSort_Date(buyers);
+                    break;
+                case 3:
+                    buyers = quickSort_Name(buyers);
+                    break;
+                case 4:
+                    cout << "Введите номер заказа для поиска:";
+                    int num;
+                    cin >> num;
+                    cout << "\n";
+
+                    binarySearch(buyers, 0, buyers.size() - 1, num);
+                    break;
+                case 5:
+                    for (int i = 0; i < buyers.size(); i++) {
+                        cout << "number: " << buyers[i].number << endl;
+                        cout << "name: " << buyers[i].name << endl;
+                        cout << "address: " << buyers[i].address << endl;
+                        cout << "accounting date: " << buyers[i].accountingDate << endl;
+                        cout << "\n";
+                    }
+                    break;
+                case 6:
+                    return 1;
+                default:
+                    cout << "Некорректный номер заказа" << endl;
+                    break;
+            }
+        }
+
         return 0;
 }
