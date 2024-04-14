@@ -222,14 +222,45 @@ vector<Buyer> heapSort(vector<Buyer> buyers, int n) {
     return buyers;
 }
 
+vector<int> linearSearch(vector<Buyer> buyers, int startIndex, Buyer obj) {
+    vector<int> indexesToDelete;
+
+    for (int i = startIndex; i < buyers.size(); i++) {
+        if (obj.name == buyers[i].name && obj.address == buyers[i].address)
+            indexesToDelete.push_back(i);
+        else
+            break;
+    }
+
+    return indexesToDelete;
+}
+
+vector<Buyer> deleteDuplicate(vector<Buyer> buyers) {
+    buyers = quickSort_Name(buyers);
+    vector<int> indexesToDelete;
+
+    for (int i = 0; i < buyers.size(); i++) {
+        if (buyers[i].name == buyers[i + 1].name && buyers[i].address == buyers[i + 1].address)
+            indexesToDelete = linearSearch(buyers, i + 1, buyers[i]);
+
+        while (!indexesToDelete.empty()) {
+            buyers.erase(buyers.begin() + indexesToDelete[0]);
+            indexesToDelete.pop_back();
+        }
+    }
+
+    return buyers;
+}
+
 
 int main(int argc, const char * argv[]) {
         vector<Buyer> buyers;
         buyers = getData(buyers);
-//        buyers = bubbleSort_Date(buyers);
-        
- //       buyers = quickSort_Name(buyers);
+        buyers = bubbleSort_Date(buyers);
+        buyers = quickSort_Name(buyers);
         buyers = heapSort(buyers, buyers.size());
+
+        buyers = deleteDuplicate(buyers);
         putData(buyers);
         return 0;
 }

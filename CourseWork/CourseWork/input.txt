@@ -3,6 +3,16 @@ name: Артём Астахов
 address: hostel number five
 accouting date: 12.05.2005
 
+number: 123
+name: Артём Астахов
+address: hostel number five
+accouting date: 12.05.2005
+
+number: 111
+name: Артём Астахов
+address: 14
+accouting date: 12.05.2005
+
 number: 134312412
 name: Дрина Астахова
 address: hostel number four
@@ -23,7 +33,7 @@ name: Ирина Сергеева
 address: 3
 accouting date: 10.01.2005
 
-number: 6
+number: 8
 name: Ирина Сергеева
 address: 3
-accouting date: 10.01.2005
+accouting date: 15.01.2005

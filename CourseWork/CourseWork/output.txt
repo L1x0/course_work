@@ -1,7 +1,17 @@
-number: 1
-name: Сергей Астахов
-address: 1
-accounting date: 09.01.2005
+number: 111
+name: Артём Астахов
+address: 14
+accounting date: 12.05.2005
+
+number: 123
+name: Артём Астахов
+address: hostel number five
+accounting date: 12.05.2005
+
+number: 134312412
+name: Дрина Астахова
+address: hostel number four
+accounting date: 34.52.99134
 
 number: 2
 name: Ирина Астахова
@@ -13,18 +23,8 @@ name: Ирина Сергеева
 address: 3
 accounting date: 10.01.2005
 
-number: 6
-name: Ирина Сергеева
-address: 3
-accounting date: 10.01.2005
-
-number: 123
-name: Артём Астахов
-address: hostel number five
-accounting date: 12.05.2005
-
-number: 134312412
-name: Дрина Астахова
-address: hostel number four
-accounting date: 34.52.99134
+number: 1
+name: Сергей Астахов
+address: 1
+accounting date: 09.01.2005
 
