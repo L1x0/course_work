@@ -22,3 +22,8 @@ number: 3
 name: Ирина Сергеева
 address: 3
 accouting date: 10.01.2005
+
+number: 6
+name: Ирина Сергеева
+address: 3
+accouting date: 10.01.2005

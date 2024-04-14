@@ -12,7 +12,7 @@
 using namespace std;
 
 struct Buyer {
-    string number;
+    int number;
     string name;
     string address;
     string accountingDate;
@@ -29,7 +29,7 @@ vector<Buyer> getData(vector<Buyer> buyers) {
             
             getline(file, temp);
             temp.replace(0, 8, "");
-            buyer.number = temp;
+            buyer.number = stoi(temp);
             
             getline(file, temp);
             temp.replace(0, 6, "");
@@ -173,13 +173,63 @@ vector<Buyer> quickSort_Name(vector<Buyer> buyers) {
 }
 
 
+vector<Buyer> heapify(vector<Buyer> buyers, int n, int i) {
+
+    int largest = i;
+    int l = 2*i + 1;
+    int r = 2*i + 2;
+ 
+    if (l < n && buyers[l].number > buyers[largest].number)
+        largest = l;
+ 
+    if (r < n && buyers[r].number > buyers[largest].number)
+        largest = r;
+ 
+    if (largest != i) {
+        swap(buyers[i], buyers[largest]);
+        heapify(buyers, n, largest);
+
+    } else {
+        return buyers;
+    }
+
+   return buyers;
+}
+ 
+
+vector<Buyer> heapSort(vector<Buyer> buyers, int n) {
+
+    for (int i = n / 2 - 1; i >= 0; i--)
+     heapify(buyers, n, i);
+ 
+
+    for (int i=n-1; i>=0; i--) {
+     swap(buyers[0], buyers[i]);
+ 
+     heapify(buyers, i, 0);
+    } 
+
+    Buyer temp;
+    temp = buyers[0];
+
+    
+    for (int i = 1; i < buyers.size(); i++) {
+        buyers[i - 1] = buyers[i];
+    }
+
+    buyers[buyers.size() - 1] = temp;
+    
+    return buyers;
+}
+
+
 int main(int argc, const char * argv[]) {
         vector<Buyer> buyers;
         buyers = getData(buyers);
-        buyers = bubbleSort_Date(buyers);
-        putData(buyers);
-        buyers = quickSort_Name(buyers);
-    
+//        buyers = bubbleSort_Date(buyers);
         
+ //       buyers = quickSort_Name(buyers);
+        buyers = heapSort(buyers, buyers.size());
+        putData(buyers);
         return 0;
 }
