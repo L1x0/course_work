@@ -20,7 +20,7 @@ accouting date: 34.52.99134
 
 number: 1
 name: Сергей Астахов
-address: 1
+address: д. 54А, кв.8, г.Минск, ул. Мира
 accouting date: 09.01.2005
 
 number: 2

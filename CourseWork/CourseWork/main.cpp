@@ -9,6 +9,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 struct Buyer {
@@ -171,53 +172,43 @@ vector<Buyer> quickSort_Name(vector<Buyer> buyers) {
 }
 
 
-vector<Buyer> heapify(vector<Buyer> buyers, int n, int i) {
-
+void heapify(std::vector<Buyer>& buyers, int n, int i) {
     int largest = i;
-    int l = 2*i + 1;
-    int r = 2*i + 2;
- 
-    if (l < n && buyers[l].number > buyers[largest].number)
-        largest = l;
- 
-    if (r < n && buyers[r].number > buyers[largest].number)
-        largest = r;
- 
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+  
+    if (left < n && buyers[left].number > buyers[largest].number) {
+        largest = left;
+    }
+
+    
+    if (right < n && buyers[right].number > buyers[largest].number) {
+        largest = right;
+    }
+
+    
     if (largest != i) {
         swap(buyers[i], buyers[largest]);
         heapify(buyers, n, largest);
-
-    } else {
-        return buyers;
     }
-
-   return buyers;
 }
- 
 
-vector<Buyer> heapSort_Number(vector<Buyer> buyers, int n) {
 
-    for (int i = n / 2 - 1; i >= 0; i--)
-     heapify(buyers, n, i);
- 
-
-    for (int i=n-1; i>=0; i--) {
-     swap(buyers[0], buyers[i]);
- 
-     heapify(buyers, i, 0);
-    } 
-
-    Buyer temp;
-    temp = buyers[0];
+void heapSort_Number(vector<Buyer>& buyers) {
+    int n = (int)buyers.size();
 
     
-    for (int i = 1; i < buyers.size(); i++) {
-        buyers[i - 1] = buyers[i];
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(buyers, n, i);
     }
 
-    buyers[buyers.size() - 1] = temp;
     
-    return buyers;
+    for (int i = n - 1; i > 0; i--) {
+        swap(buyers[0], buyers[i]);
+
+        heapify(buyers, i, 0);
+    }
 }
 
 vector<int> linearSearch(vector<Buyer> buyers, int startIndex, Buyer obj) {
@@ -233,7 +224,7 @@ vector<int> linearSearch(vector<Buyer> buyers, int startIndex, Buyer obj) {
     return indexesToDelete;
 }
 
-vector<Buyer> deleteDuplicate(vector<Buyer> buyers) {
+vector<Buyer> deleteDublicates(vector<Buyer> buyers) {
     buyers = quickSort_Name(buyers);
     vector<int> indexesToDelete;
 
@@ -250,36 +241,90 @@ vector<Buyer> deleteDuplicate(vector<Buyer> buyers) {
     return buyers;
 }
 
-void binarySearch(vector<Buyer> buyers, int low, int high, int number) { 
+int binarySearch(vector<Buyer> buyers, int low, int high, int number) {
 
-    if (high >= low) { 
+    while (high >= low) {
  
-        int mid = low + (high - low) / 2; 
+        int mid = (low + high) / 2;
   
         if (buyers[mid].number == number) {
-            cout << "number: " << buyers[mid].number << endl;
-            cout << "name: " << buyers[mid].name << endl;
-            cout << "address: " << buyers[mid].address << endl;
-            cout << "accounting date: " << buyers[mid].accountingDate << endl;
+            
+            return mid;
         }
 
         if (buyers[mid].number > number) 
-            binarySearch(buyers, low, mid - 1, number); 
-  
-        binarySearch(buyers, mid + 1, high, number); 
-    }  
+            high = mid - 1;
+        else
+            low = mid + 1;
+        
+        
+    }
+        cout << "Запись не найдена" << endl;
+    return -1;
+}
 
-    cout << "Запись не найдена" << endl;
-} 
+
+void outputToConsole(vector<Buyer> buyers) {
+    int lengthOfName = 0, lengthOfAddress = 0;
+    
+    cout << setw(9) << "Number" << "|" << setw(20) << "Name" << "|"
+    << setw(40)<< "Address" << "|" << setw(8)<< "Acounting date" << endl;
+    
+
+    for(int i = 0; i < buyers.size(); i++) {
+        
+        for (int j = 0; j < 95; j++)
+            cout << "_";
+        cout << "\n";
+        
+        
+        cout << setw(9) << buyers[i].number << "|";
+        
+        if (((buyers[i].name.substr(0,2) >= "а") && (buyers[i].name.substr(0,2) <= "я")) || (((buyers[i].name.substr(0,2) >= "А") && (buyers[i].name.substr(0,2) <= "Я")))) {
+            int countOfSpaces = 0;
+            
+            for (int j = 0; j < buyers[i].name.length(); j++) {
+                
+                if (buyers[i].name.substr(j,1) == " ")
+                    countOfSpaces++;
+            }
+            
+            lengthOfName = ((int)buyers[i].name.length() - countOfSpaces) / 2;
+            cout<< setw(20 + lengthOfName) << buyers[i].name << "|";
+            
+        } else {
+            cout<< setw(20) << buyers[i].name << "|";
+        }
+        
+        
+        
+        
+        if (((buyers[i].address.substr(0,2) >= "а") && (buyers[i].address.substr(0,2) <= "я")) || (((buyers[i].address.substr(0,2) >= "А") && (buyers[i].address.substr(0,2) <= "Я")))) {
+            int countOfOtherSymbols = 0;
+            
+            for (int j = 0; j < buyers[i].address.length(); j++) {
+                
+                if (buyers[i].address.substr(j,1) == " "  || buyers[i].address.substr(j,1) == "," || buyers[i].address.substr(j,1) == ".")
+                    countOfOtherSymbols++;
+            }
+            
+            lengthOfAddress = ((int)buyers[i].address.length() - countOfOtherSymbols) / 2;
+            cout<< setw(39 + lengthOfAddress) << buyers[i].address << "|";
+            
+        } else {
+            cout<< setw(40) << buyers[i].address << "|";
+        }
+        
+        cout << setw(12) << buyers[i].accountingDate << endl;
+    }
+}
 
 
 int main(int argc, const char * argv[]) {
-
-        setlocale(LC_ALL, "RUS");
+        Buyer temp;
         vector<Buyer> buyers;
         buyers = getData(buyers);
-        buyers = deleteDuplicate(buyers);
-        int choise;
+        int choise, indexOfNum, num;
 
         while (true) {
 
@@ -287,44 +332,101 @@ int main(int argc, const char * argv[]) {
         cout << "1 - Сортировка по номеру заказа" << endl;
         cout << "2 - Сортировка по дате заказа" << endl;
         cout << "3 - Сортировка по имени заказчика" << endl;
-        cout << "4 - поиск заказа по номеру" << endl;
-        cout << "5 - вывести с учётом сортировки" << endl;
-        cout << "6 - выход" << endl;
-        cout << "Введите номер заказа:";
+        cout << "4 - Поиск заказа по номеру" << endl;
+        cout << "5 - Вывести с учётом сортировки" << endl;
+        cout << "6 - Добавить запись" << endl;
+        cout << "7 - Удалить запись" << endl;
+        cout << "8 - Удалить дубликаты" << endl;
+        cout << "9 - Перезаписать выходной файл" << endl;
+        cout << "10 - Выход" << endl;
+        cout << "Введите номер операции:";
         cin >> choise;
         cout <<"\n";
 
             switch(choise) {
                 case 1:
-                    buyers = heapSort_Number(buyers, buyers.size());
+                    heapSort_Number(buyers);
                     break;
+                    
                 case 2:
                     buyers = bubbleSort_Date(buyers);
                     break;
+                    
                 case 3:
                     buyers = quickSort_Name(buyers);
                     break;
+                    
                 case 4:
+                    heapSort_Number(buyers);
+                    cout << "Список отсортирован для поиска" << endl;
+                    
                     cout << "Введите номер заказа для поиска:";
-                    int num;
                     cin >> num;
                     cout << "\n";
 
-                    binarySearch(buyers, 0, buyers.size() - 1, num);
+                    indexOfNum = binarySearch(buyers, 0, (int)buyers.size() - 1, num);
+                    
+                    cout << "number: " << buyers[indexOfNum].number << endl;
+                    cout << "name: " << buyers[indexOfNum].name << endl;
+                    cout << "address: " << buyers[indexOfNum].address << endl;
+                    cout << "accounting date: " << buyers[indexOfNum].accountingDate << endl;
+                    cout << "\n";
                     break;
+                    
                 case 5:
-                    for (int i = 0; i < buyers.size(); i++) {
-                        cout << "number: " << buyers[i].number << endl;
-                        cout << "name: " << buyers[i].name << endl;
-                        cout << "address: " << buyers[i].address << endl;
-                        cout << "accounting date: " << buyers[i].accountingDate << endl;
-                        cout << "\n";
-                    }
+                    outputToConsole(buyers);
                     break;
+                    
                 case 6:
+                    
+                    cout << "Введите номер заказа" << endl;
+                    cin >> temp.number;
+                    
+                    fflush(stdin);
+                    cout << "\nВведите ФИО заказчика" << endl;
+                    getline(cin, temp.name);
+                    
+                    cout << "\nВведите дату заказа (ДД.ММ.ГГГГ)" << endl;
+                    getline(cin, temp.accountingDate);
+                    
+                    cout << "\nВведите адрес заказчика" << endl;
+                    getline(cin, temp.address);
+                    buyers.push_back(temp);
+                    break;
+                    
+                case 7:
+                    cout << "Введите номер заказа для удаления" << endl;
+                    cin >> num;
+                    
+                    heapSort_Number(buyers);
+                    cout << "\nСписок отсортирован для поиска" << endl;
+                    
+                    if (binarySearch(buyers, 0, (int)buyers.size() - 1, num) != -1) {
+                        buyers.erase(buyers.begin() + binarySearch(buyers, 0, (int)buyers.size() - 1, num));
+                    } else {
+                        cout << "Запись с таким номером не обнаружена" << endl;
+                    }
+                    
+                    break;
+                    
+                case 8:
+                    buyers = deleteDublicates(buyers);
+                    cout << "Дубликаты удалены" << endl;
+                    
+                    break;
+                    
+                case 9:
+                    putData(buyers);
+                    cout << "Файлы записаны в выходной файл" << endl;
+                    
+                    break;
+                    
+                case 10:
                     return 1;
+                    break;
+                    
                 default:
-                    cout << "Некорректный номер заказа" << endl;
+                    cout << "Некорректный номер операции" << endl;
                     break;
             }
         }
