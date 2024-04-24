@@ -1,11 +1,11 @@
-number: 111
-name: Артём Астахов
-address: 14
-accounting date: 12.05.2005
-
 number: 123
 name: Артём Астахов
 address: hostel number five
+accounting date: 12.05.2005
+
+number: 111
+name: Артём Астахов
+address: 14
 accounting date: 12.05.2005
 
 number: 134312412
@@ -25,6 +25,11 @@ accounting date: 10.01.2005
 
 number: 1
 name: Сергей Астахов
-address: 1
+address: д. 54А, кв.8, г.Минск, ул. Мира
 accounting date: 09.01.2005
+
+number: 10
+name: Artem Astahov
+address: Minsk
+accounting date: 12.06.1998
 
