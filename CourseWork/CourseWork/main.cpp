@@ -320,6 +320,60 @@ void outputToConsole(vector<Buyer> buyers) {
 }
 
 
+void outputToConsole(Buyer buyer) {
+    int lengthOfName = 0, lengthOfAddress = 0;
+    
+    cout << setw(9) << "Number" << "|" << setw(20) << "Name" << "|"
+    << setw(40)<< "Address" << "|" << setw(8)<< "Acounting date" << endl;
+    
+    
+    for (int j = 0; j < 95; j++)
+        cout << "_";
+    cout << "\n";
+    
+    
+    cout << setw(9) << buyer.number << "|";
+    
+    if (((buyer.name.substr(0,2) >= "а") && (buyer.name.substr(0,2) <= "я")) || (((buyer.name.substr(0,2) >= "А") && (buyer.name.substr(0,2) <= "Я")))) {
+        int countOfSpaces = 0;
+        
+        for (int j = 0; j < buyer.name.length(); j++) {
+            
+            if (buyer.name.substr(j,1) == " ")
+                countOfSpaces++;
+        }
+        
+        lengthOfName = ((int)buyer.name.length() - countOfSpaces) / 2;
+        cout<< setw(20 + lengthOfName) << buyer.name << "|";
+        
+    } else {
+        cout<< setw(20) << buyer.name << "|";
+    }
+    
+    
+    
+    
+    if (((buyer.address.substr(0,2) >= "а") && (buyer.address.substr(0,2) <= "я")) || (((buyer.address.substr(0,2) >= "А") && (buyer.address.substr(0,2) <= "Я")))) {
+        int countOfOtherSymbols = 0;
+        
+        for (int j = 0; j < buyer.address.length(); j++) {
+            
+            if (buyer.address.substr(j,1) == " "  || buyer.address.substr(j,1) == "," || buyer.address.substr(j,1) == ".")
+                countOfOtherSymbols++;
+        }
+        
+        lengthOfAddress = ((int)buyer.address.length() - countOfOtherSymbols) / 2;
+        cout<< setw(39 + lengthOfAddress) << buyer.address << "|";
+        
+    } else {
+        cout<< setw(40) << buyer.address << "|";
+    }
+    
+    cout << setw(12) << buyer.accountingDate << endl;
+}
+
+
+
 void searchByDate(vector<Buyer> buyers, string date) {
     vector<Buyer> foundBuyers;
     
@@ -336,7 +390,7 @@ int main(int argc, const char * argv[]) {
     Buyer temp;
     vector<Buyer> buyers;
     buyers = getData(buyers);
-    int choise, indexOfNum, num;
+    int choise, num;
     string dateForSearch;
     
     while (true) {
@@ -378,13 +432,8 @@ int main(int argc, const char * argv[]) {
                 cin >> num;
                 cout << "\n";
                 
-                indexOfNum = binarySearch(buyers, 0, (int)buyers.size() - 1, num);
+                outputToConsole(buyers[binarySearch(buyers, 0, (int)buyers.size() - 1, num)]);
                 
-                cout << "number: " << buyers[indexOfNum].number << endl;
-                cout << "name: " << buyers[indexOfNum].name << endl;
-                cout << "address: " << buyers[indexOfNum].address << endl;
-                cout << "accounting date: " << buyers[indexOfNum].accountingDate << endl;
-                cout << "\n";
                 break;
                 
             case 5:
