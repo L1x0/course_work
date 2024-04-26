@@ -172,7 +172,7 @@ vector<Buyer> quickSort_Name(vector<Buyer> buyers) {
 }
 
 
-void heapify(std::vector<Buyer>& buyers, int n, int i) {
+void heapify(vector<Buyer>& buyers, int n, int i) {
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
@@ -298,7 +298,6 @@ void outputToConsole(vector<Buyer> buyers) {
         
         
         
-        
         if (((buyers[i].address.substr(0,2) >= "а") && (buyers[i].address.substr(0,2) <= "я")) || (((buyers[i].address.substr(0,2) >= "А") && (buyers[i].address.substr(0,2) <= "Я")))) {
             int countOfOtherSymbols = 0;
             
@@ -414,14 +413,17 @@ int main(int argc, const char * argv[]) {
         switch(choise) {
             case 1:
                 heapSort_Number(buyers);
+                
                 break;
                 
             case 2:
                 buyers = bubbleSort_Date(buyers);
+                
                 break;
                 
             case 3:
                 buyers = quickSort_Name(buyers);
+                
                 break;
                 
             case 4:
@@ -441,7 +443,7 @@ int main(int argc, const char * argv[]) {
                 cin >> dateForSearch;
                 
                 while (dateForSearch.length() != 10) {
-                    cout << "Дата введена некорректна,\n введите ещё раз" << endl;
+                    cout << "Дата введена некорректно, введите ещё раз" << endl;
                     cin >> dateForSearch;
                 }
                 
@@ -451,6 +453,7 @@ int main(int argc, const char * argv[]) {
                 
             case 6:
                 outputToConsole(buyers);
+                
                 break;
                 
             case 7:
@@ -468,6 +471,7 @@ int main(int argc, const char * argv[]) {
                 cout << "\nВведите адрес заказчика" << endl;
                 getline(cin, temp.address);
                 buyers.push_back(temp);
+                
                 break;
                 
             case 8:

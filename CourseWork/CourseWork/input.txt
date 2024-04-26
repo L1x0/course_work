@@ -6,32 +6,32 @@ accouting date: 12.05.2005
 number: 123
 name: Артём Астахов
 address: hostel number five
-accouting date: 12.05.2005
+accouting date: 18.05.2005
 
 number: 111
 name: Артём Астахов
-address: 14
-accouting date: 12.05.2005
+address: hostel number two
+accouting date: 20.07.2006
 
-number: 134312412
-name: Дрина Астахова
+number: 134312
+name: Дрина Иванова
 address: hostel number four
-accouting date: 34.52.99134
+accouting date: 31.12.2014
 
 number: 1
-name: Сергей Астахов
+name: Сергей Александров
 address: д. 54А, кв.8, г.Минск, ул. Мира
 accouting date: 09.01.2005
 
 number: 2
-name: Ирина Астахова
+name: Ирина Ефимова
 address: 2
 accouting date: 06.01.2005
 
 number: 3
 name: Ирина Сергеева
 address: 3
-accouting date: 10.01.2005
+accouting date: 10.02.2005
 
 number: 8
 name: Ирина Сергеева
