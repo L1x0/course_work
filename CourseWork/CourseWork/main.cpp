@@ -19,8 +19,9 @@ struct Buyer {
     string accountingDate;
 };
 
-vector<Buyer> getData(vector<Buyer> buyers) {
+vector<Buyer> getData() {
     ifstream file("input.txt");
+    vector<Buyer> buyers;
     
     if (file.is_open()) {
         string temp;
@@ -172,7 +173,7 @@ vector<Buyer> quickSort_Name(vector<Buyer> buyers) {
 }
 
 
-void heapify(vector<Buyer>& buyers, int n, int i) {
+void heapify(vector<Buyer> &buyers, int n, int i) {
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
@@ -195,7 +196,7 @@ void heapify(vector<Buyer>& buyers, int n, int i) {
 }
 
 
-void heapSort_Number(vector<Buyer>& buyers) {
+void heapSort_Number(vector<Buyer> &buyers) {
     int n = (int)buyers.size();
     
     
@@ -211,12 +212,14 @@ void heapSort_Number(vector<Buyer>& buyers) {
     }
 }
 
-vector<int> linearSearch(vector<Buyer> buyers, int startIndex, Buyer obj) {
+vector<int> linearSearch_toDelete(vector<Buyer> buyers, int startIndex) {
     vector<int> indexesToDelete;
     
-    for (int i = startIndex; i < buyers.size(); i++) {
-        if (obj.name == buyers[i].name && obj.address == buyers[i].address)
-            indexesToDelete.push_back(i);
+    for (int i = startIndex + 1; i < buyers.size(); i++) {
+        if (buyers[startIndex].name == buyers[i].name){
+            if (buyers[startIndex].address == buyers[i].address)
+                indexesToDelete.push_back(i);
+        }
         else
             break;
     }
@@ -230,7 +233,7 @@ vector<Buyer> deleteDublicates(vector<Buyer> buyers) {
     
     for (int i = 0; i < buyers.size(); i++) {
         if (buyers[i].name == buyers[i + 1].name && buyers[i].address == buyers[i + 1].address)
-            indexesToDelete = linearSearch(buyers, i + 1, buyers[i]);
+            indexesToDelete = linearSearch_toDelete(buyers, i);
         
         while (!indexesToDelete.empty()) {
             buyers.erase(buyers.begin() + indexesToDelete[0]);
@@ -384,12 +387,46 @@ void searchByDate(vector<Buyer> buyers, string date) {
     outputToConsole(foundBuyers);
 }
 
+void addToBuyersList(vector<Buyer> &buyers) {
+    Buyer temp;
+    
+    cout << "Введите номер заказа" << endl;
+    cin >> temp.number;
+    
+    fflush(stdin);
+    cout << "\nВведите ФИО заказчика" << endl;
+    getline(cin, temp.name);
+    
+    cout << "\nВведите дату заказа (ДД.ММ.ГГГГ)" << endl;
+    getline(cin, temp.accountingDate);
+    
+    cout << "\nВведите адрес заказчика" << endl;
+    getline(cin, temp.address);
+    
+    buyers.push_back(temp);
+}
+
+void deleteFromBuyersList(vector<Buyer> &buyers) {
+    int number;
+    
+    cout << "Введите номер заказа для удаления" << endl;
+    cin >> number;
+    
+    heapSort_Number(buyers);
+    cout << "\nСписок отсортирован для поиска" << endl;
+    
+    if (binarySearch(buyers, 0, (int)buyers.size() - 1, number) != -1) {
+        buyers.erase(buyers.begin() + binarySearch(buyers, 0, (int)buyers.size() - 1, number));
+    } else {
+        cout << "Запись с таким номером не обнаружена" << endl;
+    }
+}
+
 
 int main(int argc, const char * argv[]) {
-    Buyer temp;
     vector<Buyer> buyers;
-    buyers = getData(buyers);
-    int choise, num;
+    buyers = getData();
+    short choise;
     string dateForSearch;
     
     while (true) {
@@ -431,6 +468,8 @@ int main(int argc, const char * argv[]) {
                 cout << "Список отсортирован для поиска" << endl;
                 
                 cout << "Введите номер заказа для поиска:";
+                
+                int num;
                 cin >> num;
                 cout << "\n";
                 
@@ -457,35 +496,12 @@ int main(int argc, const char * argv[]) {
                 break;
                 
             case 7:
-                
-                cout << "Введите номер заказа" << endl;
-                cin >> temp.number;
-                
-                fflush(stdin);
-                cout << "\nВведите ФИО заказчика" << endl;
-                getline(cin, temp.name);
-                
-                cout << "\nВведите дату заказа (ДД.ММ.ГГГГ)" << endl;
-                getline(cin, temp.accountingDate);
-                
-                cout << "\nВведите адрес заказчика" << endl;
-                getline(cin, temp.address);
-                buyers.push_back(temp);
+                addToBuyersList(buyers);
                 
                 break;
                 
             case 8:
-                cout << "Введите номер заказа для удаления" << endl;
-                cin >> num;
-                
-                heapSort_Number(buyers);
-                cout << "\nСписок отсортирован для поиска" << endl;
-                
-                if (binarySearch(buyers, 0, (int)buyers.size() - 1, num) != -1) {
-                    buyers.erase(buyers.begin() + binarySearch(buyers, 0, (int)buyers.size() - 1, num));
-                } else {
-                    cout << "Запись с таким номером не обнаружена" << endl;
-                }
+                deleteFromBuyersList(buyers);
                 
                 break;
                 
