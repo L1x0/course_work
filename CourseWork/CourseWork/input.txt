@@ -1,14 +1,14 @@
 number: 1
 name: Сергей Александров
 address: д. 54А, кв.8, г.Минск, ул. Мира
-accouting date: 09.01.2005
+accouting date: 10.02.2005
 
 number: 123
 name: Артём Астахов
 address: hostel number five
 accouting date: 12.05.2005
 
-number: 123
+number: 124
 name: Артём Астахов
 address: hostel number five
 accouting date: 18.05.2005

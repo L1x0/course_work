@@ -244,7 +244,7 @@ vector<Buyer> deleteDublicates(vector<Buyer> buyers) {
     return buyers;
 }
 
-int binarySearch(vector<Buyer> buyers, int low, int high, int number) {
+int binarySearch_Number(vector<Buyer> buyers, int low, int high, int number) {
     
     while (high >= low) {
         
@@ -383,8 +383,10 @@ void searchByDate(vector<Buyer> buyers, string date) {
         if (buyers[i].accountingDate == date)
             foundBuyers.push_back(buyers[i]);
     }
-    
-    outputToConsole(foundBuyers);
+    if (foundBuyers.size() != 0)
+        outputToConsole(foundBuyers);
+    else
+        cout << "В тот день не было заказов" << endl;
 }
 
 void addToBuyersList(vector<Buyer> &buyers) {
@@ -415,8 +417,8 @@ void deleteFromBuyersList(vector<Buyer> &buyers) {
     heapSort_Number(buyers);
     cout << "\nСписок отсортирован для поиска" << endl;
     
-    if (binarySearch(buyers, 0, (int)buyers.size() - 1, number) != -1) {
-        buyers.erase(buyers.begin() + binarySearch(buyers, 0, (int)buyers.size() - 1, number));
+    if (binarySearch_Number(buyers, 0, (int)buyers.size() - 1, number) != -1) {
+        buyers.erase(buyers.begin() + binarySearch_Number(buyers, 0, (int)buyers.size() - 1, number));
     } else {
         cout << "Запись с таким номером не обнаружена" << endl;
     }
@@ -441,7 +443,7 @@ int main(int argc, const char * argv[]) {
         cout << "7 - Добавить запись" << endl;
         cout << "8 - Удалить запись" << endl;
         cout << "9 - Удалить дубликаты" << endl;
-        cout << "10 - Перезаписать выходной файл" << endl;
+        cout << "10 - Записать список покупателей в файл" << endl;
         cout << "11 - Выход" << endl;
         cout << "Введите номер операции:";
         cin >> choise;
@@ -473,7 +475,7 @@ int main(int argc, const char * argv[]) {
                 cin >> num;
                 cout << "\n";
                 
-                outputToConsole(buyers[binarySearch(buyers, 0, (int)buyers.size() - 1, num)]);
+                outputToConsole(buyers[binarySearch_Number(buyers, 0, (int)buyers.size() - 1, num)]);
                 
                 break;
                 
