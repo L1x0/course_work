@@ -426,10 +426,10 @@ void deleteFromBuyersList(vector<Buyer> &buyers) {
 
 
 int main(int argc, const char * argv[]) {
+    short choice;
+    string dateForSearch;
     vector<Buyer> buyers;
     buyers = getData();
-    short choise;
-    string dateForSearch;
     
     while (true) {
         
@@ -446,10 +446,10 @@ int main(int argc, const char * argv[]) {
         cout << "10 - Записать список покупателей в файл" << endl;
         cout << "11 - Выход" << endl;
         cout << "Введите номер операции:";
-        cin >> choise;
+        cin >> choice;
         cout <<"\n";
         
-        switch(choise) {
+        switch(choice) {
             case 1:
                 heapSort_Number(buyers);
                 
